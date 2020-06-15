@@ -47,6 +47,7 @@
 				title : 'id',
 				width : 100,
 				sortable : true
+				
 			}, {
 				field : 'title',
 				title : '标题',
