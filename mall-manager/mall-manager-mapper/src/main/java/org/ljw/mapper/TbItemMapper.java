@@ -7,7 +7,7 @@ import org.ljw.pojo.TbItemExample;
 
 public interface TbItemMapper {
     int countByExample(TbItemExample example);
-  //测试
+
     int deleteByExample(TbItemExample example);
 
     int deleteByPrimaryKey(Long id);

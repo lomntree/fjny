@@ -9,13 +9,13 @@
 <body>
 	<div class="super-theme-example">
 		<div style="height: 550px;">
-			<table id="dg"></table>
+			<table id="dgTbItem"></table>
 		</div>
 		<br /> <br />
 		<table id="pg" style="width: 300px"></table>
 	</div>
 	<script type="text/javascript">
-		$('#dg').datagrid({
+		$('#dgTbItem').datagrid({
 			url : 'item/getItem',
 			fit : true,
 			pagination : true,
@@ -24,6 +24,7 @@
 				text : '添加',
 				iconCls : 'fa fa-plus',
 				handler : function() {
+					$("#item-add").click();
 				}
 			}, {
 				text : '编辑',
@@ -44,47 +45,76 @@
 			height : 400,
 			columns : [ [ {
 				field : 'id',
-				title : 'id',
+				title : '商品id',
 				width : 100,
-				sortable : true
+				sortable : true,
+				align : 'center'
 				
 			}, {
 				field : 'title',
-				title : '标题',
+				title : '商品标题',
 				width : 100,
+				sortable : true,
+				align : 'center'
+			},{
+				field : 'sell_point',
+				title : '商品卖点',
+				width : 100,
+				align : 'center',
 				sortable : true
-			}, {
+			},  {
 				field : 'price',
-				title : '价格',
+				title : '商品价格',
 				width : 100,
-				align : 'right',
-				sortable : true
+				align : 'center',
+				sortable : true,
+				formatter:TT.formatPrice
+			}, {
+				field : 'num',
+				title : '商品数量',
+				width : 100,
+				sortable : true,
+				align : 'center'
+			}, {
+				field : 'barcode',
+				title : '商品条形码',
+				width : 100,
+				sortable : true,
+				align : 'center'
 			}, {
 				field : 'image',
-				title : '图片',
-				width : 100,
-				align : 'right'
+				title : '商品图片',
+				width : 200,
+				align : 'center',
+				formatter:function(value,row){
+					return "<img src ="+value+" width='175px',height='200px '>"
+				}
 			},{
-				field : 'num',
-				title : '编号',
+				field : 'cid',
+				title : '类目',
 				width : 100,
-				sortable : true
-			}, {
+				sortable : true,
+				align : 'center'
+			},{
 				field : 'status',
-				title : '状态',
+				title : '商品状态',
 				width : 100,
-				sortable : true
+				align : 'center',
+				formatter:TT.formatItemStatus
 			},{
 				field : 'created',
 				title : '创建时间',
 				width : 100,
-				sortable : true
+				align : 'center',
+				formatter:TT.formatDateTime
 			},{
 				field : 'updated',
 				title : '更新时间',
 				width : 100,
-				sortable : true
-			},] ]
+				align : 'center',
+				formatter:TT.formatDateTime
+			},] 
+			]
 		});
 	</script>
 </body>

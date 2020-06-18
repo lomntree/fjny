@@ -1,5 +1,6 @@
 package org.ljw.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.ljw.mapper.TbItemMapper;
@@ -7,6 +8,8 @@ import org.ljw.pojo.TbItem;
 import org.ljw.pojo.TbItemExample;
 import org.ljw.service.TbItemService;
 import org.ljw.utils.EasyUIDataGridResult;
+import org.ljw.utils.FjnyResult;
+import org.ljw.utils.IdRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +17,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @Service
-public class TbitemServiceImpl implements TbItemService {
+public class TbItemServiceImpl implements TbItemService {
     
 	@Autowired
 	private TbItemMapper tbItemMapper;
@@ -33,5 +36,15 @@ public class TbitemServiceImpl implements TbItemService {
 		EasyUIDataGridResult easyUIDataGridResult = new EasyUIDataGridResult(total,list);
 		return easyUIDataGridResult;
 	}
+    
+   @Override
+   public FjnyResult saveItem(TbItem tbItem) {
+	   tbItem.setId(IdRandom.getId());
+	   tbItem.setStatus((byte)1);
+	   tbItem.setCreated(new Date());
+	   tbItem.setUpdated(new Date());
+	   int a=tbItemMapper.insertSelective(tbItem);
+	   return FjnyResult.ok();
+   }
 
 }
