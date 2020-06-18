@@ -43,5 +43,7 @@
 		</javaClientGenerator>
 		<!-- 指定数据库表 -->
 		<table schema="" tableName="tb_item"></table>
+		<table schema="" tableName="tb_item_cat"></table>
+		<table schema="" tableName="tb_item_desc"></table>
 	</context>
 </generatorConfiguration>
