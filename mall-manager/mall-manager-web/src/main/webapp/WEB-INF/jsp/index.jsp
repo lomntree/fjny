@@ -92,8 +92,8 @@
 	<div data-options="region:'south'" class="super-south">
 		<!--页脚-->
 		<div class="super-footer-info">
-			<span><i class="fa fa-info-circle"></i> 作者：tianyu</span> <span><i
-				class="fa fa-copyright"></i> CopyRight 2017 版权所有 <i
+			<span><i class="fa fa-info-circle"></i> 作者：林建文</span> <span><i
+				class="fa fa-copyright"></i> CopyRight 2020 版权所有 <i
 				class="fa fa-caret-right"></i></span>
 		</div>
 	</div>

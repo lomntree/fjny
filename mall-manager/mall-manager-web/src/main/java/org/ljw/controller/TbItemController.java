@@ -2,14 +2,18 @@ package org.ljw.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.ljw.pojo.TbItem;
 import org.ljw.service.TbItemCatService;
+import org.ljw.service.TbItemDescService;
 import org.ljw.service.TbItemService;
 import org.ljw.utils.EasyUIDataGridResult;
 import org.ljw.utils.EasyUITRreeNodeBean;
 import org.ljw.utils.FjnyResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +27,8 @@ public class TbItemController {
 	public TbItemService tbItemService;
 	@Autowired
 	public TbItemCatService tbItemCatService;
+	@Autowired
+	public TbItemDescService tbItemDescService;
 	
 	@RequestMapping("/getItem")
 	@ResponseBody
@@ -32,6 +38,13 @@ public class TbItemController {
 		return tbItemService.getTbItemList(page, rows);
  
 	}
+	@RequestMapping(value="/save",method = RequestMethod.POST)
+	@ResponseBody
+	public FjnyResult saveTbItem(TbItem tbItem,String desc) {
+		System.out.println("========saveTbItem=======");
+		tbItemService.saveItem(tbItem,desc);
+		return FjnyResult.ok();
+	}
 	@RequestMapping("/cat/list")
 	@ResponseBody
 	public List<EasyUITRreeNodeBean> getItemCatList(@RequestParam(value = "id",defaultValue = "0") long parentId) {
@@ -39,13 +52,12 @@ public class TbItemController {
 		return tbItemCatService.getTbItemCatList(parentId);
 	}
 	
-	@RequestMapping(value="/save",method = RequestMethod.POST)
-	@ResponseBody
-	public FjnyResult saveTbItem(TbItem tbItem) {
-		System.out.println("========saveTbItem=======");
-		tbItemService.saveItem(tbItem);
-		return FjnyResult.ok();
-	}
 	
+	
+	@RequestMapping("/query/item-desc/{id}")
+	@ResponseBody
+	public FjnyResult getTbItemDesc(@PathVariable Long id) {
+		return tbItemDescService.getTbItemDesc(id);
+	}
 	
 }
