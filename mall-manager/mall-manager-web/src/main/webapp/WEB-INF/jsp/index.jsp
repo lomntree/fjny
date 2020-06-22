@@ -24,6 +24,8 @@
 	href="${pageContext.request.contextPath}/easyui/themes/super/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/easyui/themes/super/superBlue.css" id="themeCss" />
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/fjny.css" />
 <script type="text/javascript" charset="utf-8"
 	src="${pageContext.request.contextPath}/easyui/themes/super/super.js">
 	
@@ -77,6 +79,7 @@
 				<ul>
 					<li id="item-list" data-url='item-list'>商品列表</li>
 					<li id="item-add" data-url='item-add'>添加商品</li>
+					<li id="item-param-list" data-url='item-param-list'>规格参数</li>
 				</ul>
 			</div>
 		</div>

@@ -40,10 +40,10 @@ public class TbItemController {
 	}
 	@RequestMapping(value="/save",method = RequestMethod.POST)
 	@ResponseBody
-	public FjnyResult saveTbItem(TbItem tbItem,String desc) {
-		System.out.println("========saveTbItem=======");
-		tbItemService.saveItem(tbItem,desc);
-		return FjnyResult.ok();
+	public FjnyResult saveTbItem(TbItem tbItem,String desc,String itemParams) {
+		System.out.println("========saveTbItem=======" +itemParams);
+		return tbItemService.saveItem(tbItem,desc,itemParams);
+		
 	}
 	@RequestMapping("/cat/list")
 	@ResponseBody
@@ -59,5 +59,27 @@ public class TbItemController {
 	public FjnyResult getTbItemDesc(@PathVariable Long id) {
 		return tbItemDescService.getTbItemDesc(id);
 	}
+	@RequestMapping("/update")
+	@ResponseBody
+	public FjnyResult updateTbItem(TbItem tbItem,String desc) {
+		return tbItemService.updateTbItem(tbItem,desc);
+	}
+	@RequestMapping("/delete")
+	@ResponseBody
+	public FjnyResult deleteItem(@RequestParam("ids")List<Long>ids) {
+	System.out.println("ids:"+ids);
+	return tbItemService.deleteItem(ids);
+	}
+	@RequestMapping("/status")
+	@ResponseBody
+	public FjnyResult statusItem(@RequestParam("ids")List<Long>ids) {
+		return tbItemService.statusItem(ids);
+	}
+	@RequestMapping("/sold")
+	@ResponseBody
+	public FjnyResult soldTbItem(@RequestParam("ids")List<Long>ids) {
+		return tbItemService.soldTbItem(ids);
+	}
+	
 	
 }

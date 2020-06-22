@@ -45,5 +45,8 @@
 		<table schema="" tableName="tb_item"></table>
 		<table schema="" tableName="tb_item_cat"></table>
 		<table schema="" tableName="tb_item_desc"></table>
+		<table schema="" tableName="tb_item_param"></table>
+		<table schema="" tableName="tb_item_param_item"></table>
+		
 	</context>
 </generatorConfiguration>

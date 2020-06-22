@@ -12,8 +12,6 @@
 		style="width: 80%; height: 80%;"
 		data-options="iconCls:'icon-save',modal:true,closed:true,href:'/item-edit'"></div>
 </div>
-
-</div>
 <script type="text/javascript">
 	$('#dgTbItem').datagrid({
 		url : 'item/getItem',
@@ -60,16 +58,85 @@
 				}).window('open');
 			}
 		}, {
-			text : '保存',
-			iconCls : 'fa fa-save',
-			handler : function() {
-			}
-		}, {
 			text : '删除',
 			iconCls : 'fa fa-remove',
 			handler : function() {
+			var ids = getSelectionsIds();
+			if(ids.length == 0){
+				$.messager.alert('提示',"必须选择一个或多个商品");
+				return;
 			}
-		} ],
+			$.messager.confirm('确认', '您确定想要删除ID为'+ids+'商品吗？', function(r) {
+				if(r) {
+					var params ={"ids":ids};
+					$.post("/item/delete",params,function(data){
+						console.log(data);
+						if(data.status==200){
+							$.messager.alert('提示','删除商品成功！',undefined,function(){
+								$("#dgTbItem").datagrid("reload");
+							});
+							
+						}
+					});
+				}
+			});
+			}
+			
+		},{
+			text : '上架',
+			iconCls : 'fa fa-save',
+			handler : function () {
+				var ids = getSelectionsIds();
+				if(ids.length == 0){
+					$.messager.alert('提示',"必须选择一个或多个商品");
+					return;
+				}
+				$.messager.confirm('确认', '您确定想要上架ID为'+ids+'商品吗？', function(r) {
+					if(r) {
+						var params ={"ids":ids};
+						$.post("/item/status",params,function(data){
+							console.log(data);
+							if(data.status==200){
+								alert("上架成功");
+								$("#dgTbItem").datagrid("reload");
+							}else{
+								alert("上架失败");	
+							}
+						});
+					}
+				});
+				}	
+		}, 
+		 {
+			text : '下架',
+			iconCls : 'fa fa-save',
+			handler : function() {
+				var ids = getSelectionsIds();
+				//判断如果未选定,不执行，提示
+				if(ids.length == 0){
+					$.messager.alert("提示","必须选择一个或者多个商品");
+					return;
+				}
+				
+				//提示是否下架
+				$.messager.confirm('确认', '您确认想要下架ID为'+ids+'商品吗？', function(r) {
+					if(r) {
+						//进行post跟服务器端交互
+						var soldout = {"ids":ids};
+						$.post("/item/sold",soldout,function(data){
+							if(data.status == 200){
+								alert("下架成功");
+								$("#dgTbItem").datagrid("reload");
+							}else{
+								alert("下架失败" + data.msg);
+							}
+						})
+					}
+				});
+			
+			
+			}
+		}, ],
 		height : 400,
 		columns : [ [ {
 			field : 'id',
@@ -95,8 +162,7 @@
 			title : '商品价格',
 			width : 100,
 			align : 'center',
-			sortable : true,
-			formatter : TT.formatPrice
+			sortable : true
 		}, {
 			field : 'num',
 			title : '商品数量',
@@ -114,9 +180,7 @@
 			title : '商品图片',
 			width : 200,
 			align : 'center',
-			formatter : function(value, row) {
-				return "<img src ="+value+" width='175px',height='200px '>"
-			}
+			formatter : TT.formatImg
 		}, {
 			field : 'cid',
 			title : '类目',
